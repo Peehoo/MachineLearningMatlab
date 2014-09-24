@@ -29,9 +29,9 @@ Safety_test(strcmp (safety_test(:), 'med'), 2) = 1;
 Safety_test(strcmp (safety_test(:), 'high'), 3) = 1;
 
 ClassValues_test(strcmp (classValue_test(:), 'unacc'), 1) = 1;
-ClassValues_test(strcmp (classValue_test(:), 'acc'), 2) = 1;
-ClassValues_test(strcmp (classValue_test(:), 'good'), 3) = 1;
-ClassValues_test(strcmp (classValue_test(:), 'vgood'), 4) = 1;
+ClassValues_test(strcmp (classValue_test(:), 'acc'), 1) = 2;
+ClassValues_test(strcmp (classValue_test(:), 'good'), 1) = 3;
+ClassValues_test(strcmp (classValue_test(:), 'vgood'), 1) = 4;
 
 X_test = [Buying_test Maintainence_test Doors_test Persons_test LugBoot_test Safety_test];
 Y_test = ClassValues_test;
@@ -67,9 +67,9 @@ Safety_train(strcmp (safety_train(:), 'med'), 2) = 1;
 Safety_train(strcmp (safety_train(:), 'high'), 3) = 1;
 
 ClassValues_train(strcmp (classValue_train(:), 'unacc'), 1) = 1;
-ClassValues_train(strcmp (classValue_train(:), 'acc'), 2) = 1;
-ClassValues_train(strcmp (classValue_train(:), 'good'), 3) = 1;
-ClassValues_train(strcmp (classValue_train(:), 'vgood'), 4) = 1;
+ClassValues_train(strcmp (classValue_train(:), 'acc'), 1) = 2;
+ClassValues_train(strcmp (classValue_train(:), 'good'), 1) = 3;
+ClassValues_train(strcmp (classValue_train(:), 'vgood'), 1) = 4;
 
 X_train = [Buying_train Maintainence_train Doors_train Persons_train LugBoot_train Safety_train];
 Y_train = ClassValues_train;
@@ -104,9 +104,9 @@ Safety_valid(strcmp (safety_valid(:), 'med'), 2) = 1;
 Safety_valid(strcmp (safety_valid(:), 'high'), 3) = 1;
 
 ClassValues_valid(strcmp (classValue_valid(:), 'unacc'), 1) = 1;
-ClassValues_valid(strcmp (classValue_valid(:), 'acc'), 2) = 1;
-ClassValues_valid(strcmp (classValue_valid(:), 'good'), 3) = 1;
-ClassValues_valid(strcmp (classValue_valid(:), 'vgood'), 4) = 1;
+ClassValues_valid(strcmp (classValue_valid(:), 'acc'), 1) = 2;
+ClassValues_valid(strcmp (classValue_valid(:), 'good'), 1) = 3;
+ClassValues_valid(strcmp (classValue_valid(:), 'vgood'), 1) = 4;
 
 X_valid = [Buying_valid Maintainence_valid Doors_valid Persons_valid LugBoot_valid Safety_valid];
 Y_valid = ClassValues_valid;

@@ -17,15 +17,14 @@ figure; hold on;
 pos = find(y==1); 
 neg = find(y==-1);
 % Plot Examples
-plot(X(pos, 1), X(pos, 2),'+', 'MarkerFaceColor', 'g', 'LineWidth', 2, ...
+plot(X(pos, 1), X(pos, 2),'o', 'MarkerFaceColor', 'k', 'LineWidth', 2, ...
 'MarkerSize', 7);
-plot(X(neg, 1), X(neg, 2), 'o', 'MarkerFaceColor', 'r', ...
+plot(X(neg, 1), X(neg, 2), '+', 'MarkerFaceColor', 'b', ...
 'MarkerSize', 7);
-xlabel('Exam 1 score')
-ylabel('Exam 2 score')
+
 
 % Specified in plot order
-legend('Admitted', 'Not admitted')
+legend('Class 1', 'Class 2')
 
 %figure; % open a new figure window
 

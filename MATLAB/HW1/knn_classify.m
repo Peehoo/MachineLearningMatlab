@@ -18,33 +18,44 @@ function [accuracy_test, accuracy_train] = knn_classify(X_train, Y_train, X_test
 
 EstimatedY = zeros(size(Y_train));
 for i=1:size(X_train,1)
+    max=0;
+    votes = zeros(4,1);
     Xi = X_train(i,:);
     repeatXi = repmat(Xi, size(X_train,1), 1);
     distanceX = sqrt(sum((X_train - repeatXi).*(X_train - repeatXi),2));
     distanceX(i,1) = inf;
     [Y, I] = sort(distanceX(:,1));
-    sortedY = Y_train(I,:);
+    sortedY = Y_train(I);
     sortedTopKOnY = sortedY(1:k,:);
     if(size(sortedTopKOnY, 1) == 1)
-        votes = sortedTopKOnY;
+        EstimatedY(i) = sortedTopKOnY; 
     else
-        votes = sum(sortedTopKOnY);
+        for j=1:size(sortedTopKOnY,1)
+            votes(sortedTopKOnY(j),1)=votes(sortedTopKOnY(j),1)+1;
+        end
+        for l=1:size(votes,1)
+            if(max<votes(l))
+               max =votes(l);
+               EstimatedY(i) = l;
+            end
+        end
     end
-    votes(1,votes(1,:)<max(votes(1,:)))=0;
-    votes(1,votes(1,:)==max(votes(1,:)))=1;
-    while(size(votes(votes==max(votes)),2)>1)
-        votes(find(votes,1))=0;
-    end
-    EstimatedY(i,:) = votes;
 end
 
-D = Y_train - EstimatedY;
-D(D==-1) = 1;
-error_train = sum(sum(D))/(2* size(X_train, 1));
+error_train=0;
+for w = 1:size(Y_train,1)
+    if(ne(Y_train(w),EstimatedY(w)))
+        error_train = error_train+1;
+    end
+end
+error_train = error_train/size(Y_train,1);
 accuracy_train = 1 - error_train;
+
 
 EstimatedY = zeros(size(Y_test));
 for i=1:size(X_test,1)
+    max=0;
+    votes = zeros(4,1);
     Xi = X_test(i,:);
     repeatXi = repmat(Xi, size(X_train,1), 1);
     distanceX = sqrt(sum((X_train - repeatXi).*(X_train - repeatXi),2));
@@ -53,21 +64,25 @@ for i=1:size(X_test,1)
     sortedTopKOnY = sortedY(1:k,:);
     
     if(size(sortedTopKOnY, 1) == 1)
-        votes = sortedTopKOnY;
+        EstimatedY(i) = sortedTopKOnY; 
     else
-        votes = sum(sortedTopKOnY);
+        for j=1:size(sortedTopKOnY,1)
+            votes(sortedTopKOnY(j),1)=votes(sortedTopKOnY(j),1)+1;
+        end
+        for l=1:size(votes,1)
+            if(max<votes(l))
+               max =votes(l);
+               EstimatedY(i) = l;
+            end
+        end
     end
-    
-    votes(1,votes(1,:)<max(votes(1,:)))=0;
-    votes(1,votes(1,:)==max(votes(1,:)))=1;
-    while(size(votes(votes==max(votes)),2)>1)
-        votes(find(votes,1))=0;
-    end
-    EstimatedY(i,:) = votes;
 end
 
-D_test = Y_test - EstimatedY;
-D_test(D_test==-1) = 1;
-error_test = sum(sum(D_test))/(2* size(X_test, 1));
+error_test=0;
+for k = 1:size(Y_test,1)
+    if(ne(Y_test(k),EstimatedY(k)))
+        error_test = error_test+1;
+    end
+end
+error_test = error_test/size(Y_test,1);
 accuracy_test = 1 - error_test;
-

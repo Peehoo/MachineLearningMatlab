@@ -1,4 +1,3 @@
-clear
 [buying_test,maint_test,doors_test,persons_test,lugBoot_test,safety_test,classValue_test] = importdata('car_test.txt', 1, inf);
 
 Buying_test(strcmp (buying_test(:), 'vhigh'), 1) = 1;
@@ -111,48 +110,42 @@ ClassValues_valid(strcmp (classValue_valid(:), 'vgood'), 1) = 4;
 X_valid = [Buying_valid Maintainence_valid Doors_valid Persons_valid LugBoot_valid Safety_valid];
 Y_valid = ClassValues_valid;
 
-Results_train = zeros(12,1);
-Results_test = zeros(12,1);
-Results_valid = zeros(12,1);
-for i = 1:2:23
-    fprintf('accuracy for k = %d\n\n', i);
-    [test_accu, train_accu] = knn_classify(X_train, Y_train, X_test, Y_test, i);
-    [valid_accu, train_accu] = knn_classify(X_train, Y_train, X_valid, Y_valid, i);
-    fprintf('train accuracy = %f\n',train_accu);
-    fprintf('test accuracy = %f\n',test_accu);
-    fprintf('valid accuracy = %f\n\n',valid_accu);
-    Results_train(i) = train_accu;
-    Results_test(i) = test_accu;
-    Results_valid(i) = valid_accu;
+B1 = mnrfit(X_train,Y_train);
+B2 = mnrfit(X_test,Y_test);
+B3 = mnrfit(X_valid,Y_valid);
+ 
+pihat1 = mnrval(B1,X_train);
+pihat2 = mnrval(B1,X_test);
+pihat3 = mnrval(B1,X_valid);
+ 
+[a1,b1] = max(pihat1,[],2);
+[a2,b2] = max(pihat2,[],2);
+[a3,b3] = max(pihat3,[],2);
+
+error_train=0;
+for w = 1:size(Y_train,1)
+    if(ne(Y_train(w),b1(w)))
+        error_train = error_train+1;
+    end
 end
-k = linspace(1,23,12);
-Results_train = Results_train(ne(Results_train(:),0));
-Results_test = Results_test(ne(Results_test(:),0));
-Results_valid = Results_valid(ne(Results_valid(:),0));
-figure % create new figure
-subplot(2,2,1) % first subplot
-plot(k,Results_train,'color', 'g')
-xlhand = get(gca,'xlabel');
-set(xlhand,'string','K','fontsize',10)% x-axis label
-ylhand = get(gca,'ylabel');
-set(ylhand,'string','Training set accuracy','fontsize',10)% y-axis label
-tlhand = get(gca, 'title');
-set(tlhand,'string','Graph of K and Training accuracy','fontsize',10)% title
+error_train = error_train/size(Y_train,1);
+accuracy_train = 1 - error_train
 
-subplot(2,2,2) % second subplot
-plot(k,Results_test, 'color', 'b')
-xlhand = get(gca,'xlabel');
-set(xlhand,'string','K','fontsize',10)% x-axis label
-ylhand = get(gca,'ylabel');
-set(ylhand,'string','Testing set accuracy','fontsize',10)% y-axis label
-tlhand = get(gca, 'title');
-set(tlhand,'string','Graph of K and Testing accuracy','fontsize',10)% title
+ 
+error_test=0;
+for k = 1:size(Y_test,1)
+    if(ne(Y_test(k),b2(k)))
+        error_test = error_test+1;
+    end
+end
+error_test = error_test/size(Y_test,1);
+accuracy_test = 1 - error_test
 
-subplot(2,2,3) % second subplot
-plot(k,Results_valid, 'color', 'r')
-xlhand = get(gca,'xlabel');
-set(xlhand,'string','K','fontsize',10)% x-axis label
-ylhand = get(gca,'ylabel');
-set(ylhand,'string','Validation set accuracy','fontsize',10)% y-axis label
-tlhand = get(gca, 'title');
-set(tlhand,'string','Graph of K and Validation accuracy','fontsize',10)% title
+error_valid=0;
+for k = 1:size(Y_valid,1)
+    if(ne(Y_valid(k),b3(k)))
+        error_valid = error_valid+1;
+    end
+end
+error_valid = error_valid/size(Y_valid,1);
+accuracy_valid = 1 - error_valid

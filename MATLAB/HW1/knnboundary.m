@@ -10,8 +10,8 @@ for j = 1:5:20
         sortedY = labels(I,:);
         sortedTopKOnY = sortedY(1:j,:);
 
-        votes1 = size(sortedTopKOnY(sortedTopKOnY==1), 1)
-        votesnot1 = size(sortedTopKOnY(sortedTopKOnY==-1), 1)
+        votes1 = size(sortedTopKOnY(sortedTopKOnY==1), 1);
+        votesnot1 = size(sortedTopKOnY(sortedTopKOnY==-1), 1);
 
         
         if(votes1 > votesnot1)
@@ -20,7 +20,7 @@ for j = 1:5:20
             EstimatedY(i,:) = -1;
         end
     end
-    %plotData(X, EstimatedY); 
+    plotData(X, EstimatedY); 
 end
 
 
