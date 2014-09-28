@@ -2,11 +2,11 @@ function features = getFeatureVector(email_contents, vocabList)
 
 % Process file
 l = 0;
-features = zeros(size(vocabList))
+features = zeros(size(vocabList));
 while ~isempty(email_contents)
 
     % Tokenize and also get rid of any punctuation
-    [str, email_contents] = strtok(email_contents, [' @$/#.-:&*+=[]?!(){},''">_<;%' char(10) char(13)]);
+    [str, email_contents] = strtok(email_contents, [' .?,\f\n\r\t\v' char(13)]);
     
     % Skip the word if it is too short
     if length(str) < 1
@@ -39,28 +39,17 @@ while ~isempty(email_contents)
     
     for i = 1:size (vocabList)
         if(strcmp(vocabList{i}, str) == 1)
-            features(i) = features(i) +1
+            features(i) = features(i) +1;
         end
     end
-
-
-
-    
-
-
-
-
-
 
     % =============================================================
 
 
     % Print to screen, ensuring that the output lines are not too long
     if (l + length(str) + 1) > 78
-        fprintf('\n');
         l = 0;
     end
-    fprintf('%s ', str);
     l = l + length(str) + 1;
 
 end
