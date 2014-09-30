@@ -14,7 +14,7 @@ S(size(S,2)-2:size(S,2))
 
 lambda = 0.05;
 eta = 0.01;
-[cost, theta] = gradientDescent(lambda, eta, X_train, Y_train);
+[cost, theta] = gradientDescent(lambda, eta, X_train, Y_train, 50);
 
 
 

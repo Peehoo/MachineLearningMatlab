@@ -9,7 +9,6 @@ row=1;
 for i=1:size(listing,1)
     if((strcmp(listing(i).name, '.'))==0)
         if((strcmp(listing(i).name, '..'))==0)
-            row
             nameOfFile = strcat(spamTrainingDirectory, '/' , listing(i).name);
             email_contents = readFile(nameOfFile);
             features = getFeatureVector(email_contents, vocabList);
@@ -28,7 +27,6 @@ listing = dir(hamTrainingDirectory);
 for j=1:size(listing,1)
     if((strcmp(listing(j).name, '.'))==0)
         if((strcmp(listing(j).name, '..'))==0)
-            row
             nameOfFile = strcat(hamTrainingDirectory, '/' , listing(j).name); 
             email_contents = readFile(nameOfFile);
             features = getFeatureVector(email_contents, vocabList);
