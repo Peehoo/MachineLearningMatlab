@@ -5,17 +5,17 @@ X_test = getIonosphereX('hw2_data/ionosphere/ionosphere_test.dat', 1, inf);
 
 Y_I_train = getIonosphereY('hw2_data/ionosphere/ionosphere_train.dat', 1, inf);
 Y_train = zeros(size(Y_I_train));
-Y_train(strcmp(Y_I_train, 'g')==1)=1;
+Y_train(strcmp(Y_I_train, 'b')==1)=1;
 
 
 Y_I_test = getIonosphereY('hw2_data/ionosphere/ionosphere_test.dat', 1, inf);
 Y_test = zeros(size(Y_I_test));
-Y_test(strcmp(Y_I_test, 'g')==1)=1;
+Y_test(strcmp(Y_I_test, 'b')==1)=1;
 
 
 lambda = 0.05;
 eta  = 0.0001;
-[cost, theta] = gradientDescent(lambda, eta, X_train, Y_train);
+[costMatrix, cost, theta] = gradientDescent(lambda, eta, X_train, Y_train, numIterations);
 
 %training_accuracy = cost;
 
