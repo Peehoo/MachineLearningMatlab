@@ -235,7 +235,7 @@ clear cost_train theta b Sig OneMinusSig regularizedCost regularizedCost_test co
 %---------------------------------------------------------------------------------------------------
 
 fprintf('\nQuestion 5.3 part 6 - Ionosphere data\n');
-[costMatrix, cost, theta] = NewtonMethod(50, X_train_ionosphere, Y_train_ionosphere, 0)
+[costMatrix, cost, theta] = NewtonMethod(50, X_train_ionosphere, Y_train_ionosphere, 0.5)
 
 figure % create new figure
 plot(costMatrix)

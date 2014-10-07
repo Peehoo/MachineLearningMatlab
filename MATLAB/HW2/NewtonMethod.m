@@ -30,7 +30,8 @@ X_train = [ones(size(X_train,1),1) X_train];
 for i = 1 : numIterations
     Sig = sigmoid(X_train*theta_b);
 
-    theta_b = theta_b - ((pinv(X_train'*diag(Sig)*diag(1-Sig)*X_train + 2*lambda_1.*identity)))*X_train'*(Sig-Y_train) + 2*lambda_1*[0;theta_b(2:end)];
+    H = X_train'*diag(Sig)*diag(1-Sig)*X_train + lambda_1.*identity;
+    theta_b = theta_b - ((pinv(H)))*(X_train'*(Sig-Y_train) + 2*lambda_1*[0;theta_b(2:end)]);
         
     Sig = sigmoid(X_train*theta_b);
     %OneMinusSig = 1 - Sig;
