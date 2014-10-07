@@ -6,6 +6,7 @@ b = 0.1;
 theta = zeros(size(X_train,2),1);
 costMatrix = zeros(numIterations,1);
 Sig = sigmoid(b + X_train*theta);
+% costMatrix(1) = - Y_train'*log(Sig) - (1 - Y_train)'*(log(1-Sig)) + lambda*norm(theta,2)^2;
 for i=1:numIterations
 
     b = b - eta*(sum(Sig-Y_train));
