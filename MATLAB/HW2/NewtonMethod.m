@@ -1,4 +1,4 @@
-function [costMatrix, cost, theta_b] = NewtonMethod(numIterations, X_train, Y_train, lambda_1)
+function [costMatrix, cost, theta_b, cost_test] = NewtonMethod(numIterations, X_train, Y_train, X_test, Y_test, lambda_1)
 
 lambda = 0.05;
 eta = 0.01;
@@ -27,6 +27,8 @@ identity = eye(size(theta_b,1));
 identity(1,1) = 0;
 
 X_train = [ones(size(X_train,1),1) X_train];
+X_test = [ones(size(X_test,1),1) X_test];
+
 for i = 1 : numIterations
     Sig = sigmoid(X_train*theta_b);
 
@@ -42,5 +44,10 @@ for i = 1 : numIterations
     cost = - Y_train'*log(Sig) - (1 - Y_train)'*(log(1-Sig)) + lambda_1*norm(theta_b(2:end),2)^2;
     costMatrix(i) = cost;
 end
+
+Sig = sigmoid(X_test*theta_b);
+    Sig(Sig>1- 1e-16) = 1 - 1e-16;
+    Sig(Sig<1e-16) = 1e-16;
+cost_test = Y_test'*log(Sig) - (1 - Y_test)'*(log(1-Sig)) + lambda_1*norm(theta_b(2:end),2)^2;
 
 

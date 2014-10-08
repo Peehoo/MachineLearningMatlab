@@ -235,7 +235,7 @@ clear cost_train theta b Sig OneMinusSig regularizedCost regularizedCost_test co
 %---------------------------------------------------------------------------------------------------
 
 fprintf('\nQuestion 5.3 part 6 - Ionosphere data\n');
-[costMatrix, cost, theta] = NewtonMethod(50, X_train_ionosphere, Y_train_ionosphere, 0.5)
+[costMatrix, cost, theta] = NewtonMethod(50, X_train_ionosphere, Y_train_ionosphere, 0)
 
 figure % create new figure
 plot(costMatrix)
@@ -251,3 +251,21 @@ fprintf('L2 norm = %f\n', l2norm);
 
 clear costMatrix cost theta
 
+%---------------------------------------------------------------------------------------------------
+
+fprintf('\nQuestion 5.3 part 6 - Spam data\n');
+[costMatrix, cost, theta, cost_test] = NewtonMethod(50, X_train_spam, Y_train_spam, 0)
+
+figure % create new figure
+plot(costMatrix)
+
+xlhand = get(gca,'xlabel');
+set(xlhand,'string','number of Iterations','fontsize',15)% x-axis label
+ylhand = get(gca,'ylabel');
+set(ylhand,'string','Cross Entropy Value','fontsize',15)% y-axis label
+tlhand = get(gca, 'title');
+set(tlhand,'string',strcat('Spam Data: Graph of Cross Entropy value vs number of iterations'),'fontsize',15)% title
+l2norm = norm(theta(2:end),2);
+fprintf('L2 norm = %f\n', l2norm);
+
+clear costMatrix cost theta
