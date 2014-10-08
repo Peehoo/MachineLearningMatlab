@@ -41,7 +41,7 @@ for i = 1 : numIterations
     Sig(Sig>1-1e-16) = 1-1e-16;
     Sig(Sig<1e-16) = 1e-16;
     
-    cost = - Y_train'*log(Sig) - (1 - Y_train)'*(log(1-Sig)) + lambda_1*norm(theta_b(2:end),2)^2
+    cost = - Y_train'*log(Sig) - (1 - Y_train)'*(log(1-Sig)) + lambda_1*norm(theta_b(2:end),2)^2;
     costMatrix(i) = cost;
 end
 

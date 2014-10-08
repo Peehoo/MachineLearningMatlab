@@ -15,7 +15,7 @@ Y_test_ionosphere(strcmp(Y_I_test_ionosphere, 'b')==1)=1;
 fprintf('\n Loading Spam Data...\n');
 fprintf('This may take a few minutes......\n');
 
-% [X_train_spam, Y_train_spam, X_test_spam, Y_test_spam] = loadSpamData();
+[X_train_spam, Y_train_spam, X_test_spam, Y_test_spam] = loadSpamData();
 
 % -----------------------------------------------------------------------------------------
 % 5.3 part 3(a) - Ionosphere data
@@ -272,13 +272,43 @@ clear costMatrix cost theta cost_test
 
 %---------------------------------------------------------------------------------------------------
 
+
+L = 0:0.05:0.5;
+figure % create new figure
+Color = ['b' 'g' 'r' 'c' 'm' 'y' 'k' 'w' '[1,0.4,0.6]' '[1,0.4,0.8]'];
+for i = 1:size(L,2)
+    [costMatrix, cost, theta, cost_test] = NewtonMethod(50, X_train_ionosphere, Y_train_ionosphere, X_test_ionosphere, Y_test_ionosphere, L(1,i));
+    l2norm = norm(theta(2:end),2);
+fprintf('L2 norm = %f\n', l2norm);
+fprintf('cross entropy for Ionospere test - %f\n',cost_test);
+    h= plot(costMatrix);
+    R = rand(1, 3)
+    set(h,'Color',R)
+    clear costMatrix cost theta cost_test
+    hold on;
+end
+legend(strcat('lambda = ','0.05'), strcat('lambda = ','0.1'), strcat('lambda = ','0.15'), strcat('lambda = ','0.2'), strcat('eta = ', '0.25'), strcat('lambda = ','0.3'), strcat('lambda = ','0.35'), strcat('lambda = ','0.4'), strcat('lambda = ','0.45'), strcat('lambda = ','0.5'));
+xlhand = get(gca,'xlabel');
+set(xlhand,'string','number of Iterations','fontsize',15)% x-axis label
+ylhand = get(gca,'ylabel');
+set(ylhand,'string','Cross Entropy Value','fontsize',15)% y-axis label
+tlhand = get(gca, 'title');
+set(tlhand,'string','Ionosphere Data:Graph of Cross Entropy value vs number of iterations for different values of lambda','fontsize',15)% title
+hold off;
+
+
+
+%---------------------------------------------------------------------------------------------------
 L = 0:0.05:0.5;
 figure % create new figure
 Color = ['b' 'g' 'r' 'c' 'm' 'y' 'k' 'w' '[1,0.4,0.6]' '[1,0.4,0.8]'];
 for i = 1:size(L,2)
     [costMatrix, cost, theta, cost_test] = NewtonMethod(50, X_train_spam, Y_train_spam, X_test_spam, Y_test_spam, L(1,i));
+        l2norm = norm(theta(2:end),2);
+fprintf('L2 norm = %f\n', l2norm);
+fprintf('cross entropy for Spam test - %f\n',cost_test);
     h= plot(costMatrix);
-    R = rand(1, 3)
+    R = rand(1, 3);
     set(h,'Color',R)
     clear costMatrix cost theta cost_test
     hold on;
