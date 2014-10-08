@@ -48,6 +48,6 @@ end
 Sig = sigmoid(X_test*theta_b);
     Sig(Sig>1- 1e-16) = 1 - 1e-16;
     Sig(Sig<1e-16) = 1e-16;
-cost_test = Y_test'*log(Sig) - (1 - Y_test)'*(log(1-Sig)) + lambda_1*norm(theta_b(2:end),2)^2;
+cost_test = -Y_test'*log(Sig) - (1 - Y_test)'*(log(1-Sig)) + lambda_1*norm(theta_b(2:end),2)^2;
 
 

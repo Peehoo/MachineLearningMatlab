@@ -235,7 +235,7 @@ clear cost_train theta b Sig OneMinusSig regularizedCost regularizedCost_test co
 %---------------------------------------------------------------------------------------------------
 
 fprintf('\nQuestion 5.3 part 6 - Ionosphere data\n');
-[costMatrix, cost, theta] = NewtonMethod(50, X_train_ionosphere, Y_train_ionosphere, 0)
+[costMatrix, cost, theta, cost_test] = NewtonMethod(50, X_train_ionosphere, Y_train_ionosphere, X_test_ionosphere, Y_test_ionosphere, 0);
 
 figure % create new figure
 plot(costMatrix)
@@ -248,13 +248,13 @@ tlhand = get(gca, 'title');
 set(tlhand,'string',strcat('Ionosphere Data: Graph of Cross Entropy value vs number of iterations'),'fontsize',15)% title
 l2norm = norm(theta(2:end),2);
 fprintf('L2 norm = %f\n', l2norm);
-
-clear costMatrix cost theta
+fprintf('cross entropy for Ionospere test - %f\n',cost_test);
+clear costMatrix cost theta cost_test
 
 %---------------------------------------------------------------------------------------------------
 
 fprintf('\nQuestion 5.3 part 6 - Spam data\n');
-[costMatrix, cost, theta, cost_test] = NewtonMethod(50, X_train_spam, Y_train_spam, X_test_spam, Y_test_spam, 0)
+[costMatrix, cost, theta, cost_test] = NewtonMethod(50, X_train_spam, Y_train_spam, X_test_spam, Y_test_spam, 0);
 
 figure % create new figure
 plot(costMatrix)
@@ -267,5 +267,17 @@ tlhand = get(gca, 'title');
 set(tlhand,'string',strcat('Spam Data: Graph of Cross Entropy value vs number of iterations'),'fontsize',15)% title
 l2norm = norm(theta(2:end),2);
 fprintf('L2 norm = %f\n', l2norm);
+fprintf('cross entropy for Spam test - %f\n',cost_test);
+clear costMatrix cost theta cost_test
 
-clear costMatrix cost theta
+%---------------------------------------------------------------------------------------------------
+
+L = 0:0.05:0.5;
+figure % create new figure
+Color = ['b' 'g' 'r' 'c' 'm' 'y' 'k' 'w' '[1,0.4,0.6]' '[1,0.4,0.8]'];
+for i = 1:size(L,2)
+    [costMatrix, cost, theta, cost_test] = NewtonMethod(50, X_train_spam, Y_train_spam, X_test_spam, Y_test_spam, L(1,i));
+    plot(costMatrix, Color(i));
+    clear costMatrix cost theta cost_test
+    hold on;
+end
