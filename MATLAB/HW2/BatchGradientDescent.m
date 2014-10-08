@@ -254,7 +254,7 @@ clear costMatrix cost theta
 %---------------------------------------------------------------------------------------------------
 
 fprintf('\nQuestion 5.3 part 6 - Spam data\n');
-[costMatrix, cost, theta, cost_test] = NewtonMethod(50, X_train_spam, Y_train_spam, 0)
+[costMatrix, cost, theta, cost_test] = NewtonMethod(50, X_train_spam, Y_train_spam, X_test_spam, Y_test_spam, 0)
 
 figure % create new figure
 plot(costMatrix)
