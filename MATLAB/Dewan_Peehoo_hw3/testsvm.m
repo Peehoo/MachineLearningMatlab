@@ -11,7 +11,7 @@ function accu = testsvm(test_data, test_label, w, b)
 %  accu: test accuracy (between [0, 1])
 %
 % CSCI 576 2014 Fall, Homework 
-p = test_data*w + b
+p = test_data*w + b;
 p(p<0)=-1;
 p(p>=0)=1;
-accu = 1 - sum(abs(test_label - p)/2)/size(test_data,1)
+accu = 1 - sum(abs(test_label - p)/2)/size(test_data,1);

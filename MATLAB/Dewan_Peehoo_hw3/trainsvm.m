@@ -28,4 +28,4 @@ problem.bineq = -ones(n,1);
 
 result = quadprog(problem);
 b = result(size(result,1));
-w = result(1:d)
+w = result(1:d);
