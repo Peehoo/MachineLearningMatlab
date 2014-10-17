@@ -14,7 +14,7 @@ function [w,b] = trainsvm(train_data, train_label, C)
 
 [n d] = size(train_data);
 maxIter = 100; % Running for 100 iterations
-opts = optimset('Algorithm', 'interior-point-convex','MaxIter',maxIter); 
+opts = optimset('Algorithm', 'interior-point-convex','MaxIter',maxIter, 'Display','off'); 
 
 signedXY = train_data.*repmat(train_label,1,d);
 problem.options = opts;
