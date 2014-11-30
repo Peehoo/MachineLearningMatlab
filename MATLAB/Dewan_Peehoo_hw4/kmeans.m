@@ -31,5 +31,7 @@ end
 
 %plotting data
 plotClusters(X, c_new, mu, k);
+t = title(sprintf('Clusters, with k = %d', k));
+set(t, 'FontSize', 15);
 
 
