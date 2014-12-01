@@ -4,7 +4,7 @@ function [max_c, max_accuracy, max_rbf_c, max_rbf_gamma, max_rbf_accuracy] = get
 
  
 
-C = [200 100 50 10 1 0.1 0.01 0.001 0.0001];
+C = [10000000 1000000 100000 10000 1000 100 10 1 0.1 0.01 0.001 0.0001];
     
 max_accuracy = 0.0;
 max_c = 4^-6;
@@ -20,7 +20,7 @@ for j=1:size(C,2)
 end
 
 
-gamma_values = [4^-7 4^-6 4^-5 4^-4 4^-3 4^-2 4^-1];
+gamma_values = [10^-9 10^-8 10^-7 10^-6 10^-5 10^-4 10^-3 10^-2 10^-1 1 10 100 1000];
 max_rbf_accuracy =0.0;
 max_rbf_c =0.0;
 max_rbf_gamma =0.0;

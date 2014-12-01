@@ -28,7 +28,10 @@ B_max = max(abs(eI(1,:)));
     figure;
     B_max = max(abs(eI(j,:)));
     colormap(gray);
-    imagesc((reshape(eI(j,:), [sqrt(size(eI,2)) sqrt(size(eI,2))])/B_max),[-1 1]);
+    %imagesc((reshape(eI(j,:), [sqrt(size(eI,2)) sqrt(size(eI,2))])/B_max),[-1 1]);
+    
+    imshow((reshape(eI(j,:), [sqrt(size(eI,2)) sqrt(size(eI,2))])),[]);
+    
  end
  
  % add path, required for libsvm
