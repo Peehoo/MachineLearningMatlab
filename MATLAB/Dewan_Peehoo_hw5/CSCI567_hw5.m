@@ -23,15 +23,11 @@ eI = eigenvecs';
 B_max = max(abs(eI(1,:)));
 
  
-%displayData(eI);
  for j=1:size(eI,1)
     figure;
     B_max = max(abs(eI(j,:)));
-    colormap(gray);
-    %imagesc((reshape(eI(j,:), [sqrt(size(eI,2)) sqrt(size(eI,2))])/B_max),[-1 1]);
-    
+    colormap(gray);    
     imshow((reshape(eI(j,:), [sqrt(size(eI,2)) sqrt(size(eI,2))])),[]);
-    
  end
  
  % add path, required for libsvm
@@ -43,7 +39,7 @@ overall_accu = 0;
 accuracy_for_each_d = zeros(size(d,1),1);
 rbf_accuracy_for_each_d = zeros(size(d,1),1);
 
-parameters = zeros(size(d,1), 3);
+parameters = zeros(size(d,1), 3, 5);
 
 for k= 1: size(d,1)
     eigenvecs = pca_fun(normalized_train_X, d(k)); 
@@ -79,13 +75,12 @@ for k= 1: size(d,1)
                 max_rbf_gamma = g_rbf;
             end
         end
-        parameters(k, 1) = max_c;
-        parameters(k, 2) = max_rbf_c;
-        parameters(k, 3) = max_rbf_gamma;
+        parameters(k, 1, w) = max_c;
+        parameters(k, 2, w) = max_rbf_c;
+        parameters(k, 3, w) = max_rbf_gamma;
         
         
         options_params = strcat('-t 0',32,'-s 0',32, '-c',32,num2str(max_c), 32,'-q');
-        %options_params = strcat('-t 0', 32, '-c 0.001', 32,'-q', 32, '-s 0');
         model= svmtrain(Ytrain, Xtrain, options_params);
         [predict_label_P, accuracy_P, dec_values_P] = svmpredict(Ytest, Xtest, model);
         overall_accu = overall_accu + accuracy_P(1);
@@ -103,4 +98,9 @@ for k= 1: size(d,1)
      parameters
 end
 
+A_init = [0.7, 0.3; 0.3, 0.7];
+E_init = [0.25, 0.25, 0.25, 0.25; 0.25, 0.25, 0.25, 0.25];
+data = load('hmm_data.mat');
+[A, E]  = baumwelch(data.data, A_init, E_init, 500);
 
+[A_hmm, E_hmm]  = hmmtrain(data.data, A_init, E_init, 'Algorithm', 'BaumWelch' );
